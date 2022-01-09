@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trivia_game/questions/question_page.dart';
+import 'package:trivia_game/contexts/questions/question_page.dart';
 
 void main() {
   runApp(const TriviaGame());
