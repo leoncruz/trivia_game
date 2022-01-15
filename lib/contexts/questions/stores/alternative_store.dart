@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
-class AlternativeStore extends ValueNotifier<String?> {
-  AlternativeStore() : super('');
+class AlternativeStore extends ChangeNotifier {
+  String? alternative = '';
 
-  void selectAlternative(String? alternative) {
-    value = alternative;
+  static AlternativeStore instance = AlternativeStore();
+
+  void selectAlternative(String? selected) {
+    alternative = selected;
+    notifyListeners();
   }
 }

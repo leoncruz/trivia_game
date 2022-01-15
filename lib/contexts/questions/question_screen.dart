@@ -12,7 +12,7 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
   final QuestionStore _store = QuestionStore();
-  final AlternativeStore _alternativeStore = AlternativeStore();
+  final AlternativeStore _alternativeStore = AlternativeStore.instance;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(_alternativeStore.value!),
+                      content: Text(_alternativeStore.alternative!),
                       duration: const Duration(seconds: 1),
                     ),
                   );
