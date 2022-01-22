@@ -17,15 +17,13 @@ class AlternativesWidget extends StatelessWidget {
           child: ListView.builder(
             itemCount: alternatives.length,
             itemBuilder: (_, index) {
-              return ListTile(
+              return RadioListTile(
                 title: Text(alternatives[index]),
-                leading: Radio<String>(
-                  value: alternatives[index],
-                  groupValue: _alternativeStore.alternative,
-                  onChanged: (String? selected) {
-                    _alternativeStore.selectAlternative(selected);
-                  },
-                ),
+                value: alternatives[index],
+                groupValue: _alternativeStore.alternative,
+                onChanged: (String? selected) {
+                  _alternativeStore.selectAlternative(selected);
+                },
               );
             },
           ),
