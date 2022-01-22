@@ -11,33 +11,36 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  final QuestionStore _store = QuestionStore();
+  final QuestionStore _questionStore = QuestionStore();
   final AlternativeStore _alternativeStore = AlternativeStore.instance;
 
   @override
   void initState() {
     super.initState();
-    _store.fetchQuestion();
+    _questionStore.fetchQuestion();
   }
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: _store,
+      valueListenable: _questionStore,
       builder: (_, store, child) {
         return Container(
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
               Text(
-                _store.value.question,
+                _questionStore.value.question,
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
                 ),
               ),
-              AlternativesWidget(_store.value.alternatives),
+              AlternativesWidget(_questionStore.value.alternatives),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                ),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -48,6 +51,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 },
                 child: const Text(
                   "Confirmar",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ],
