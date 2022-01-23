@@ -22,44 +22,51 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: _questionStore,
-      builder: (_, store, child) {
-        return Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Text(
-                _questionStore.value.question,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                ),
-              ),
-              AlternativesWidget(_questionStore.value.alternatives),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(50),
-                ),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(_alternativeStore.alternative!),
-                      duration: const Duration(seconds: 1),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Confirmar",
-                  style: TextStyle(
-                    fontSize: 18,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Pergunta',
+        ),
+      ),
+      body: ValueListenableBuilder(
+        valueListenable: _questionStore,
+        builder: (_, store, child) {
+          return Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                Text(
+                  _questionStore.value.question,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+                AlternativesWidget(_questionStore.value.alternatives),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(50),
+                  ),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(_alternativeStore.alternative!),
+                        duration: const Duration(seconds: 1),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    "Confirmar",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
