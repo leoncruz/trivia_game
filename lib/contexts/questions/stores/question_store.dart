@@ -7,8 +7,8 @@ class QuestionStore extends ValueNotifier<QuestionModel> {
 
   QuestionStore() : super(QuestionModel());
 
-  Future<void> fetchQuestion() async {
-    final QuestionModel question = await _repository.fetchQuestion();
+  Future<void> fetchQuestion({required categoryId}) async {
+    final QuestionModel question = await _repository.fetchQuestion(categoryId: categoryId);
     value = question;
   }
 }

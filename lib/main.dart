@@ -1,4 +1,7 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:trivia_game/contexts/category/category_screen.dart';
 import 'package:trivia_game/contexts/questions/question_screen.dart';
 
 void main() {
@@ -16,12 +19,21 @@ class TriviaGame extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Trivia Game'),
-        ),
-        body: QuestionScreen(),
-      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const CategoryScreen(),
+      },
+      onGenerateRoute: (route) {
+        if (route.name == '/question') {
+          final args = route.arguments as Map;
+
+          return MaterialPageRoute(
+            builder: (context) {
+              return QuestionScreen(categoryId: args['categoryId']);
+            },
+          );
+        }
+      },
     );
   }
 }

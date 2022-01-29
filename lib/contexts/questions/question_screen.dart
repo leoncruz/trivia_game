@@ -4,7 +4,9 @@ import 'package:trivia_game/contexts/questions/stores/question_store.dart';
 import 'package:trivia_game/contexts/questions/widgets/alternatives_widget.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({Key? key}) : super(key: key);
+  final int categoryId;
+
+  const QuestionScreen({Key? key, required this.categoryId}) : super(key: key);
 
   @override
   State<QuestionScreen> createState() => _QuestionScreenState();
@@ -17,7 +19,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   @override
   void initState() {
     super.initState();
-    _questionStore.fetchQuestion();
+    _questionStore.fetchQuestion(categoryId: widget.categoryId);
   }
 
   @override
