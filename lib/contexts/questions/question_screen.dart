@@ -13,13 +13,13 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  final QuestionStore _questionStore = QuestionStore();
+  final QuestionStore _questionStore = QuestionStore.instance;
   final AlternativeStore _alternativeStore = AlternativeStore.instance;
 
   @override
   void initState() {
     super.initState();
-    _questionStore.fetchQuestion(categoryId: widget.categoryId);
+    _questionStore.fetchQuestions(categoryId: widget.categoryId);
   }
 
   @override
@@ -30,21 +30,21 @@ class _QuestionScreenState extends State<QuestionScreen> {
           'Pergunta',
         ),
       ),
-      body: ValueListenableBuilder(
-        valueListenable: _questionStore,
-        builder: (_, store, child) {
+      body: AnimatedBuilder(
+        animation: _questionStore,
+        builder: (BuildContext context, Widget? child) {
           return Container(
             padding: const EdgeInsets.all(16),
             child: Column(
               children: [
                 Text(
-                  _questionStore.value.question,
+                  _questionStore.questions[0].question,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                 ),
-                AlternativesWidget(_questionStore.value.alternatives),
+                AlternativesWidget(_questionStore.questions[0].alternatives),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size.fromHeight(50),

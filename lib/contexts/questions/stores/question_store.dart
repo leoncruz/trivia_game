@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:trivia_game/contexts/questions/question_model.dart';
 import 'package:trivia_game/contexts/questions/question_repository.dart';
 
-class QuestionStore extends ValueNotifier<QuestionModel> {
+class QuestionStore extends ChangeNotifier {
+  static QuestionStore instance = QuestionStore();
+
   final QuestionRepository _repository = QuestionRepository();
+  late List<QuestionModel> questions;
 
-  QuestionStore() : super(QuestionModel());
+  Future<void> fetchQuestions({required categoryId}) async {
+    questions = await _repository.fetchQuestions(categoryId: categoryId);
 
-  Future<void> fetchQuestion({required categoryId}) async {
-    final QuestionModel question = await _repository.fetchQuestion(categoryId: categoryId);
-    value = question;
+    notifyListeners();
   }
 }
