@@ -22,6 +22,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   void dispose() {
     _questionStore.isEndQuestions = false;
     _controller.index = 0;
+    _questionStore.index = 0;
     _alternativeStore.alternative = '';
     super.dispose();
   }
@@ -43,7 +44,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
               builder: (BuildContext context, Widget? child) {
                 if (!_questionStore.isEndQuestions) {
                   return Body(
-                    questionTitle: _controller.actualQuestion.question,
+                    questionTitle: _controller.actualQuestion.questionCommand,
                     alternatives: _controller.actualQuestion.alternatives,
                   );
                 }

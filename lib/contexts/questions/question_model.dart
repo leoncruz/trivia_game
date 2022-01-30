@@ -37,4 +37,11 @@ class QuestionModel {
 
     return options;
   }
+
+  String get questionCommand {
+    String formatted = question.replaceAll("&quot;", '"');
+    formatted = formatted.replaceAll("&eacute;", "é");
+
+    return formatted.replaceAll("&#039;", "'");
+  }
 }
