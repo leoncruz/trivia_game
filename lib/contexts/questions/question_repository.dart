@@ -4,11 +4,12 @@ import 'package:trivia_game/services/api_client.dart';
 class QuestionRepository {
   ApiClient apiClient = ApiClient();
 
-  Future<List<QuestionModel>> fetchQuestions({required categoryId}) async {
+  Future<List<QuestionModel>> fetchQuestions(
+      {required categoryId, required quantity}) async {
     final response = await apiClient.getAll(
       '/api.php',
       {
-        'amount': 10,
+        'amount': quantity,
         'category': categoryId,
       },
     );
