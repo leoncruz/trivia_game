@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:trivia_game/contexts/questions/question_controller.dart';
 import 'package:trivia_game/contexts/questions/stores/alternative_store.dart';
 import 'package:trivia_game/contexts/questions/stores/question_store.dart';
-import 'package:trivia_game/contexts/questions/widgets/alternatives_widget.dart';
+import 'package:trivia_game/contexts/questions/widgets/body.dart';
 
 class QuestionScreen extends StatefulWidget {
   final int categoryId;
@@ -15,11 +16,14 @@ class QuestionScreen extends StatefulWidget {
 class _QuestionScreenState extends State<QuestionScreen> {
   final QuestionStore _questionStore = QuestionStore.instance;
   final AlternativeStore _alternativeStore = AlternativeStore.instance;
+  final QuestionController _controller = QuestionController.instance;
 
   @override
-  void initState() {
-    super.initState();
-    _questionStore.fetchQuestions(categoryId: widget.categoryId);
+  void dispose() {
+    _questionStore.isEndQuestions = false;
+    _controller.index = 0;
+    _alternativeStore.alternative = '';
+    super.dispose();
   }
 
   @override
@@ -30,42 +34,28 @@ class _QuestionScreenState extends State<QuestionScreen> {
           'Pergunta',
         ),
       ),
-      body: AnimatedBuilder(
-        animation: _questionStore,
-        builder: (BuildContext context, Widget? child) {
-          return Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                Text(
-                  _questionStore.questions[0].question,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                  ),
-                ),
-                AlternativesWidget(_questionStore.questions[0].alternatives),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(50),
-                  ),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(_alternativeStore.alternative!),
-                        duration: const Duration(seconds: 1),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    "Confirmar",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ],
-            ),
+      body: FutureBuilder(
+        future: _controller.fetchQuestions(categoryId: widget.categoryId),
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return AnimatedBuilder(
+              animation: _questionStore,
+              builder: (BuildContext context, Widget? child) {
+                if (!_questionStore.isEndQuestions) {
+                  return Body(
+                    questionTitle: _controller.actualQuestion.question,
+                    alternatives: _controller.actualQuestion.alternatives,
+                  );
+                }
+
+                return const Center(
+                  child: Text('acabou'),
+                );
+              },
+            );
+          }
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         },
       ),

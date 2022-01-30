@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:trivia_game/contexts/questions/question_model.dart';
-import 'package:trivia_game/contexts/questions/question_repository.dart';
 
 class QuestionStore extends ChangeNotifier {
   static QuestionStore instance = QuestionStore();
 
-  final QuestionRepository _repository = QuestionRepository();
   late List<QuestionModel> questions;
+  bool isEndQuestions = false;
+  int index = 0;
 
-  Future<void> fetchQuestions({required categoryId}) async {
-    questions = await _repository.fetchQuestions(categoryId: categoryId);
+  QuestionModel get actualQuestion => questions[index];
+
+  changeQuestion(int newIndex) {
+    index = newIndex;
+
+    notifyListeners();
+  }
+
+  addQuestions(List<QuestionModel> newQuestions) {
+    questions = newQuestions;
+
+    notifyListeners();
+  }
+
+  endQuestions() {
+    isEndQuestions = true;
 
     notifyListeners();
   }
