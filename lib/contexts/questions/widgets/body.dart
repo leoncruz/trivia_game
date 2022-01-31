@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:trivia_game/contexts/questions/question_controller.dart';
+import 'package:trivia_game/contexts/questions/stores/question_store.dart';
 import 'package:trivia_game/contexts/questions/widgets/alternatives_widget.dart';
 
 class Body extends StatelessWidget {
@@ -7,6 +8,7 @@ class Body extends StatelessWidget {
   final List<String> alternatives;
 
   final QuestionController _controller = QuestionController.instance;
+  final QuestionStore _store = QuestionStore.instance;
 
   Body({
     Key? key,
@@ -34,6 +36,13 @@ class Body extends StatelessWidget {
             ),
             onPressed: () {
               _controller.compareAlternatives();
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(_store.isRightAnswer ? 'Certo!' : 'Errado!'),
+                  duration: const Duration(seconds: 2),
+                ),
+              );
             },
             child: const Text(
               "Confirmar",

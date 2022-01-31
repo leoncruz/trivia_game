@@ -25,7 +25,11 @@ class QuestionController {
   }
 
   compareAlternatives() {
-    // _alternativeStore.alternative == actualQuestion.correctAnswer;
+    if (_alternativeStore.alternative == actualQuestion.correctAnswer) {
+      _store.rightAnswer(true);
+    } else {
+      _store.rightAnswer(false);
+    }
     _changeQuestion();
   }
 

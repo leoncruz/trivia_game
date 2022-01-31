@@ -6,6 +6,7 @@ class QuestionStore extends ChangeNotifier {
 
   late List<QuestionModel> questions;
   bool isEndQuestions = false;
+  bool isRightAnswer = false;
   int index = 0;
 
   QuestionModel get actualQuestion => questions[index];
@@ -24,6 +25,12 @@ class QuestionStore extends ChangeNotifier {
 
   endQuestions() {
     isEndQuestions = true;
+
+    notifyListeners();
+  }
+
+  rightAnswer(value) {
+    isRightAnswer = value;
 
     notifyListeners();
   }
