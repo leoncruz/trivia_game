@@ -22,6 +22,7 @@ class QuestionController {
     } else {
       _store.endQuestions();
     }
+    _alternativeStore.clear();
   }
 
   compareAlternatives() {

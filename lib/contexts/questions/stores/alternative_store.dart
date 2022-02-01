@@ -7,6 +7,13 @@ class AlternativeStore extends ChangeNotifier {
 
   void selectAlternative(String? selected) {
     alternative = selected;
+
+    notifyListeners();
+  }
+
+  void clear() {
+    alternative = '';
+
     notifyListeners();
   }
 }
