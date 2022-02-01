@@ -14,7 +14,7 @@ class QuestionController {
 
   QuestionModel get actualQuestion => _store.actualQuestion;
 
-  _changeQuestion() {
+  changeQuestion() {
     index++;
 
     if (index < quantity) {
@@ -25,13 +25,11 @@ class QuestionController {
     _alternativeStore.clear();
   }
 
-  compareAlternatives() {
-    if (_alternativeStore.alternative == actualQuestion.correctAnswer) {
-      _store.rightAnswer(true);
-    } else {
-      _store.rightAnswer(false);
-    }
-    _changeQuestion();
+  bool compareAlternatives() {
+    final result =
+        _alternativeStore.alternative == actualQuestion.correctAnswer;
+    _store.rightAnswer(result);
+    return result;
   }
 
   Future<void> fetchQuestions({required categoryId}) async {
