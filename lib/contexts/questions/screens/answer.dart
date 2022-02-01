@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:trivia_game/contexts/questions/question_controller.dart';
+import 'package:trivia_game/contexts/questions/stores/question_store.dart';
 
 class AnswerScreen extends StatefulWidget {
   final bool isRightAnswer;
@@ -14,6 +14,8 @@ class AnswerScreen extends StatefulWidget {
 
 class _AnswerScreenState extends State<AnswerScreen>
     with TickerProviderStateMixin {
+  final QuestionStore _questionStore = QuestionStore.instance;
+
   late Timer timer;
   late AnimationController _animationController;
   int _time = 3;
@@ -42,7 +44,11 @@ class _AnswerScreenState extends State<AnswerScreen>
     });
 
     Future.delayed(const Duration(seconds: 3), () {
-      Navigator.pop(context);
+      if (!_questionStore.isEndQuestions) {
+        Navigator.pop(context);
+      } else {
+        Navigator.pushNamed(context, '/end_game');
+      }
     });
 
     iconColor = widget.isRightAnswer ? Colors.green : Colors.red;

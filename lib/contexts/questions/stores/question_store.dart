@@ -8,6 +8,7 @@ class QuestionStore extends ChangeNotifier {
   bool isEndQuestions = false;
   bool isRightAnswer = false;
   int index = 0;
+  int points = 0;
 
   QuestionModel get actualQuestion => questions[index];
 
@@ -33,5 +34,9 @@ class QuestionStore extends ChangeNotifier {
     isRightAnswer = value;
 
     notifyListeners();
+  }
+
+  addPoint() {
+    points++;
   }
 }

@@ -7,7 +7,7 @@ class QuestionController {
   final QuestionStore _store = QuestionStore.instance;
   final AlternativeStore _alternativeStore = AlternativeStore.instance;
   final QuestionRepository _repository = QuestionRepository();
-  final int quantity = 5;
+  final int quantity = 1;
   int index = 0;
 
   static QuestionController instance = QuestionController();

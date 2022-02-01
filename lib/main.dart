@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:trivia_game/contexts/category/category_screen.dart';
 import 'package:trivia_game/contexts/questions/question_screen.dart';
 import 'package:trivia_game/contexts/questions/screens/answer.dart';
+import 'package:trivia_game/contexts/questions/screens/end_game.dart';
 
 void main() {
   runApp(const TriviaGame());
@@ -21,6 +22,7 @@ class TriviaGame extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => const CategoryScreen(),
+        '/end_game': (context) => EndGame(),
       },
       onGenerateRoute: (route) {
         switch (route.name) {
