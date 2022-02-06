@@ -7,8 +7,8 @@ class QuestionController {
   final QuestionStore _store = QuestionStore.instance;
   final AlternativeStore _alternativeStore = AlternativeStore.instance;
   final QuestionRepository _repository = QuestionRepository();
-  final int quantity = 1;
-  int index = 0;
+  final int quantity = 5;
+  int index = 0, points = 0;
 
   static QuestionController instance = QuestionController();
 
@@ -25,11 +25,12 @@ class QuestionController {
     _alternativeStore.clear();
   }
 
-  bool compareAlternatives() {
+  compareAlternatives() {
     final result =
         _alternativeStore.alternative == actualQuestion.correctAnswer;
     _store.rightAnswer(result);
-    return result;
+
+    if (result) addPoint();
   }
 
   Future<void> fetchQuestions({required categoryId}) async {
@@ -39,5 +40,9 @@ class QuestionController {
     );
 
     _store.addQuestions(questions);
+  }
+
+  addPoint() {
+    points++;
   }
 }
