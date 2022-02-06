@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:trivia_game/contexts/questions/question_controller.dart';
 import 'package:trivia_game/contexts/questions/stores/alternative_store.dart';
+import 'package:trivia_game/contexts/questions/stores/question_store.dart';
 import 'package:trivia_game/contexts/questions/widgets/alternatives_widget.dart';
 
 class Body extends StatelessWidget {
@@ -9,6 +10,7 @@ class Body extends StatelessWidget {
 
   final QuestionController _controller = QuestionController.instance;
   final AlternativeStore _alternativeStore = AlternativeStore.instance;
+  final _questionStore = QuestionStore.instance;
 
   Body({
     Key? key,
@@ -67,14 +69,14 @@ class Body extends StatelessWidget {
         primary: Colors.blue,
       ),
       onPressed: () {
-        final result = _controller.compareAlternatives();
+        _controller.compareAlternatives();
         _controller.changeQuestion();
 
         Navigator.pushNamed(
           context,
           '/answer',
           arguments: {
-            'isRightAnswer': result,
+            'isRightAnswer': _questionStore.isRightAnswer,
           },
         );
       },

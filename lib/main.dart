@@ -8,8 +8,7 @@ void main() {
   runApp(const TriviaGame());
 }
 
-class TriviaGame extends StatelessWidget {
-  const TriviaGame({Key? key}) : super(key: key);
+class TriviaGame extends StatelessWidget { const TriviaGame({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

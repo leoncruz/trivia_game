@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:trivia_game/contexts/questions/question_controller.dart';
-import 'package:trivia_game/contexts/questions/screens/end_game.dart';
 import 'package:trivia_game/contexts/questions/stores/alternative_store.dart';
 import 'package:trivia_game/contexts/questions/stores/question_store.dart';
 import 'package:trivia_game/contexts/questions/widgets/body.dart';
