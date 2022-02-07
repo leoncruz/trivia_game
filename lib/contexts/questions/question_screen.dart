@@ -22,6 +22,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
   void dispose() {
     _questionStore.isEndQuestions = false;
     _controller.index = 0;
+    _controller.points = 0;
     _questionStore.index = 0;
     _alternativeStore.alternative = '';
     super.dispose();
