@@ -2,10 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:trivia_game/contexts/category/stores/category_store.dart';
 import 'package:trivia_game/contexts/category/widgets/body.dart';
 
-class CategoryScreen extends StatelessWidget {
-  CategoryScreen({Key? key}) : super(key: key);
+class CategoryScreen extends StatefulWidget {
+  const CategoryScreen({Key? key}) : super(key: key);
 
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
   final _categoryStore = CategoryStore();
+  late Future<void> futureCategories;
+
+  @override
+  void initState() {
+    super.initState();
+    futureCategories = _categoryStore.fillCategories();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _categoryStore.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +33,7 @@ class CategoryScreen extends StatelessWidget {
       ),
       body: Center(
         child: FutureBuilder(
-          future: _categoryStore.fillCategories(),
+          future: futureCategories,
           builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return Body(categories: _categoryStore.categories);
