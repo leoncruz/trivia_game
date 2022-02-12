@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:trivia_game/contexts/category/stores/category_store.dart';
-import 'package:trivia_game/contexts/category/widgets/body.dart';
+
+import 'stores/category_store.dart';
+import 'widgets/body.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({Key? key}) : super(key: key);
